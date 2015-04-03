@@ -27,7 +27,7 @@ IF (@anzahl > 0)
 		BEGIN 
 			SET @nummer = @anzahl;
 		END
-   END
+END
 
 RETURN (@kuezel + @name + @nummer)
 END
