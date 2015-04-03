@@ -150,3 +150,14 @@ ELSE
 GO
 
 EXEC sp_BegleicheGebuehr 4, 50
+
+
+
+-- Funktion GetMitarbeiterBit notwendig
+
+mitarbeiter können zusätzlich:
+- bücher hinzufügen / löschen
+- exemplare hinzufügen / löschen
+- nutzer hinzufügen / löschen
+- ausweis sperren / entsperren / verlängern
+- leihfrist oder gebühr ändern
