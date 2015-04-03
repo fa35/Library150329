@@ -367,9 +367,134 @@ EXEC sp_LoescheNutzer 2, 7
 
 
 
+-- sperre ausweis
 
-mitarbeiter können zusätzlich:
+USE[Bibliothek]
+GO
+CREATE PROCEDURE sp_SperreAusweis @ausweisNr int, @personenId int
+AS
+DECLARE @mitarbeiter bit = dbo.GetMitarbeiterBit(@ausweisNr);
+IF (@mitarbeiter = 0)
+	BEGIN 
+		PRINT 'Sie sind nicht berechtigt'
+	END
+ELSE
+	BEGIN
+		UPDATE [dbo].[Ausweise] SET [gesperrt] = 1 WHERE pf_personen_id = @personenId
+	END
+GO
 
 
-- ausweis sperren / entsperren / verlängern
-- leihfrist oder gebühr ändern
+EXEC sp_SperreAusweis 2, 3
+
+
+
+-- entsperre ausweis
+
+USE[Bibliothek]
+GO
+CREATE PROCEDURE sp_EntsperreAusweis @ausweisNr int, @personenId int
+AS
+DECLARE @mitarbeiter bit = dbo.GetMitarbeiterBit(@ausweisNr);
+IF (@mitarbeiter = 0)
+	BEGIN 
+		PRINT 'Sie sind nicht berechtigt'
+	END
+ELSE
+	BEGIN
+		UPDATE [dbo].[Ausweise] SET [gesperrt] = 0 WHERE pf_personen_id = @personenId
+	END
+GO
+
+
+EXEC sp_EntsperreAusweis 2, 3
+
+
+
+-- verlaengere ausweis
+
+
+USE[Bibliothek]
+GO
+CREATE PROCEDURE sp_VerlaengereAusweis @ausweisNr int, @personenId int
+AS
+DECLARE @mitarbeiter bit = dbo.GetMitarbeiterBit(@ausweisNr);
+IF (@mitarbeiter = 0)
+	BEGIN 
+		PRINT 'Sie sind nicht berechtigt'
+	END
+ELSE
+	BEGIN
+		UPDATE [dbo].[Ausweise] SET [gueltigBis] = DATEADD(YEAR, 2, GETDATE()) WHERE pf_personen_id = @personenId
+	END
+GO
+
+
+EXEC sp_VerlaengereAusweis 2, 3
+
+
+-- aendere leichfrist / die ausleihwochen
+
+USE[Bibliothek]
+GO
+CREATE PROCEDURE sp_AendereLeihfrist @ausweisNr int, @leihwochen tinyint, @bibId int
+AS
+DECLARE @mitarbeiter bit = dbo.GetMitarbeiterBit(@ausweisNr);
+IF (@mitarbeiter = 0)
+	BEGIN 
+		PRINT 'Sie sind nicht berechtigt'
+	END
+ELSE
+	BEGIN
+		UPDATE [dbo].[Bibliotheken] SET [leihfrist_wochen] = @leihwochen WHERE p_bibliothek_id = @bibId
+	END
+GO
+
+
+EXEC sp_AendereLeihfrist 2, 3, 2
+
+
+-- aendere die jahres gebuehr
+
+
+USE[Bibliothek]
+GO
+CREATE PROCEDURE sp_AendereJahresGebuehr @ausweisNr int, @gebuehr smallmoney, @bibId int
+AS
+DECLARE @mitarbeiter bit = dbo.GetMitarbeiterBit(@ausweisNr);
+IF (@mitarbeiter = 0)
+	BEGIN 
+		PRINT 'Sie sind nicht berechtigt'
+	END
+ELSE
+	BEGIN
+		UPDATE [dbo].[Bibliotheken] SET [gebuehren_jahr] = @gebuehr WHERE p_bibliothek_id = @bibId
+	END
+GO
+
+
+EXEC sp_AendereJahresGebuehr 2, 35, 2
+
+
+
+-- andere die ausleih gebuehr
+
+
+
+USE[Bibliothek]
+GO
+CREATE PROCEDURE sp_AendereLeihGebuehr @ausweisNr int, @gebuehr smallmoney, @bibId int
+AS
+DECLARE @mitarbeiter bit = dbo.GetMitarbeiterBit(@ausweisNr);
+IF (@mitarbeiter = 0)
+	BEGIN 
+		PRINT 'Sie sind nicht berechtigt'
+	END
+ELSE
+	BEGIN
+		UPDATE [dbo].[Bibliotheken] SET [gebuehren_leihfrist] = @gebuehr WHERE p_bibliothek_id = @bibId
+	END
+GO
+
+
+EXEC sp_AendereLeihGebuehr 2, 5, 2
