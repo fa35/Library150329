@@ -50,7 +50,7 @@ EXEC sp_GebeExemplarZurueck 'WISP0001'
 
 
 
--- Nutzer mit Ausweis, kann Bücher / Exemplare ausleihen:
+-- Nutzer mit Ausweis, kann Exemplare ausleihen:
 
 USE[Bibliothek]
 GO
@@ -86,7 +86,7 @@ IF (@personenId >= 1)
 	END
 ELSE
 	BEGIN
-		PRINT 'Ausweis ist nicht mehr gültig'
+		PRINT 'Ausweis ist nicht mehr gueltig'
 	END
 END
 
@@ -96,10 +96,57 @@ EXEC sp_LeiheExemplarAus 3499624249, 4, 'Stadtbibliothek'
 
 
 
+-- Nutzer mit Ausweis, kann Bücher vorbestellen:
 
--- - - bücher vorbestellen
+USE[Bibliothek]
+GO
+
+CREATE PROCEDURE sp_BestelleBuchVor (@isbn bigint, @ausweisNr int)
+AS
+
+DECLARE @personenId int;
+SET @personenId = (select pf_personen_id from Ausweise where gesperrt = 0 and ausweisnr = @ausweisNr) -- = pf_personen_id falls ausweis gueltig
+
+IF (@personenId <= 0)
+	BEGIN
+		PRINT 'Ausweis ist nicht gueltig'
+	END
+ELSE
+	BEGIN
+		INSERT INTO [dbo].[Vorbestellte_Buecher]
+				   ([pf_isbn]
+				   ,[pf_personen_id])
+			 VALUES
+				   (@isbn, @personenId)
+	END
+GO
+
+EXEC sp_BestelleBuchVor 3897215675, 4
 
 
 
--- - - gebühren bezahlen
+-- Nutzer mit Ausweis, kann Gebuehren bezahlen:
 
+USE[Bibliothek]
+GO
+
+CREATE PROCEDURE sp_BegleicheGebuehr (@ausweisNr int, @betrag smallmoney)
+AS
+
+DECLARE @personenId int, @currKontostand smallmoney;
+SET @personenId = (select pf_personen_id from Ausweise where ausweisnr = @ausweisNr)
+SET @currKontostand = (select top(1) kontostand from Nutzer where p_personen_id = @personenId)
+
+IF(@personenId >= 0)
+	BEGIN
+		UPDATE [dbo].[Nutzer]
+			SET kontostand = (@currKontostand-@betrag)
+			WHERE p_personen_id = @personenId
+	END
+ELSE
+	BEGIN
+		PRINT 'Person konnte nicht gefunden werden.'
+	END
+GO
+
+EXEC sp_BegleicheGebuehr 4, 50
