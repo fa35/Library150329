@@ -1,5 +1,3 @@
--- Funktion zum Holen des Mitarbeiter-Bits
-
 USE[Bibliothek]
 GO
 CREATE FUNCTION GetMitarbeiterBit (@ausweisNr int)
