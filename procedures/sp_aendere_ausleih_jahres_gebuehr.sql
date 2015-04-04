@@ -4,7 +4,7 @@
 
 USE[Bibliothek]
 GO
-CREATE PROCEDURE sp_AendereJahresGebuehr @ausweisNr int, @gebuehr smallmoney, @bibId int
+CREATE PROCEDURE sp_AendereJahresGebuehr @ausweisNr int, @gebuehr smallmoney, @bibname nvarchar(max)
 AS
 DECLARE @mitarbeiter bit = dbo.GetMitarbeiterBit(@ausweisNr);
 IF (@mitarbeiter = 0)
@@ -13,7 +13,7 @@ IF (@mitarbeiter = 0)
 	END
 ELSE
 	BEGIN
-		UPDATE [dbo].[Bibliotheken] SET [gebuehren_jahr] = @gebuehr WHERE p_bibliothek_id = @bibId
+		UPDATE [dbo].[Bibliotheken] SET [gebuehren_jahr] = @gebuehr WHERE name = @bibname
 	END
 GO
 
@@ -26,7 +26,7 @@ EXEC sp_AendereJahresGebuehr 2, 35, 2
 
 USE[Bibliothek]
 GO
-CREATE PROCEDURE sp_AendereLeihGebuehr @ausweisNr int, @gebuehr smallmoney, @bibId int
+CREATE PROCEDURE sp_AendereLeihGebuehr @ausweisNr int, @gebuehr smallmoney, @bibname nvarchar(max)
 AS
 DECLARE @mitarbeiter bit = dbo.GetMitarbeiterBit(@ausweisNr);
 IF (@mitarbeiter = 0)
@@ -35,7 +35,7 @@ IF (@mitarbeiter = 0)
 	END
 ELSE
 	BEGIN
-		UPDATE [dbo].[Bibliotheken] SET [gebuehren_leihfrist] = @gebuehr WHERE p_bibliothek_id = @bibId
+		UPDATE [dbo].[Bibliotheken] SET [gebuehren_leihfrist] = @gebuehr WHERE name = @bibname
 	END
 GO
 

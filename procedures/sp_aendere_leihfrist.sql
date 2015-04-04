@@ -2,7 +2,7 @@
 
 USE[Bibliothek]
 GO
-CREATE PROCEDURE sp_AendereLeihfrist @ausweisNr int, @leihwochen tinyint, @bibId int
+CREATE PROCEDURE sp_AendereLeihfrist @ausweisNr int, @leihwochen tinyint, @bibname nvarchar(max)
 AS
 DECLARE @mitarbeiter bit = dbo.GetMitarbeiterBit(@ausweisNr);
 IF (@mitarbeiter = 0)
@@ -11,7 +11,7 @@ IF (@mitarbeiter = 0)
 	END
 ELSE
 	BEGIN
-		UPDATE [dbo].[Bibliotheken] SET [leihfrist_wochen] = @leihwochen WHERE p_bibliothek_id = @bibId
+		UPDATE [dbo].[Bibliotheken] SET [leihfrist_wochen] = @leihwochen WHERE name = @bibname
 	END
 GO
 
