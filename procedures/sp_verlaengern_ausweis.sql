@@ -12,7 +12,7 @@ IF (@mitarbeiter = 0)
 	END
 ELSE
 	BEGIN
-		UPDATE [dbo].[Ausweise] SET [gueltigBis] = DATEADD(YEAR, 2, GETDATE()) WHERE pf_personen_id = @personenId
+		UPDATE [dbo].[Ausweise] SET [gueltigBis] = DATEADD(YEAR, 10, GETDATE()) WHERE pf_personen_id = @personenId
 	END
 GO
 
