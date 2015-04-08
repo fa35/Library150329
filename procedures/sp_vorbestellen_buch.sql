@@ -7,15 +7,16 @@ GO
 CREATE PROCEDURE sp_BestelleBuchVor (@isbn bigint, @ausweisNr int)
 AS
 
-DECLARE @personenId int;
-SET @personenId = (select pf_personen_id from Ausweise where gesperrt = 0 and ausweisnr = @ausweisNr) -- = pf_personen_id falls ausweis gueltig
+DECLARE @gesperrt bit = dbo.GetAusweisGesperrt (@ausweisNr)
 
-IF (@personenId <= 0)
-	BEGIN
-		PRINT 'Ausweis ist nicht gueltig'
-	END
+IF(@gesperrt = 1)
+BEGIN
+	PRINT 'Ausweis ist geperrt'
+END
 ELSE
 	BEGIN
+		DECLARE @personenId int = (select pf_personen_id from Ausweise where ausweisnr = @ausweisNr)
+
 		INSERT INTO [dbo].[Vorbestellte_Buecher]
 				   ([pf_isbn]
 				   ,[pf_personen_id])
@@ -23,5 +24,6 @@ ELSE
 				   (@isbn, @personenId)
 	END
 GO
+
 
 EXEC sp_BestelleBuchVor 3897215675, 4
