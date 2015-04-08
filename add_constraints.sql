@@ -1,3 +1,5 @@
+-- @license: GPLv2
+-- @author: Corinna Rohr
 
 -- Oeffnungszeiten: von < bis
 ALTER TABLE Oeffnungszeiten

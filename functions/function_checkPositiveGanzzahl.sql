@@ -1,3 +1,5 @@
+-- @license: GPLv2
+-- @author: Corinna Rohr
 
 -- Wie kann man herausfinden ob der Wert einer Ganzzahl entspricht?
 

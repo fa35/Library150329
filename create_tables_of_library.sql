@@ -1,3 +1,6 @@
+-- @license: GPLv2
+-- @author: Michael Grosse
+
 CREATE TABLE Fachgebiete
 (
 	p_fachgebiet_id INTEGER NOT NULL PRIMARY KEY,

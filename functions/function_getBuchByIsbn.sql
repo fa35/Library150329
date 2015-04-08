@@ -1,3 +1,6 @@
+-- @license: GPLv2
+-- @author: Corinna Rohr
+
 USE [Bibliothek]
 GO
 IF OBJECT_ID (N'dbo.GetBuchByIsbn', N'IF') IS NOT NULL

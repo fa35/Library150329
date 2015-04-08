@@ -1,4 +1,5 @@
-
+-- @license: GPLv2
+-- @author: Corinna Rohr
 
 
 USE[Bibliothek]

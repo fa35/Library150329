@@ -1,3 +1,6 @@
+-- @license: GPLv2
+-- @author: Corinna Rohr
+
 -- Mitarbeiter legt neues Buch an
 -- Funktion GetMitarbeiterBit notwendig
 

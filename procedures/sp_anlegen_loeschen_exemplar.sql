@@ -1,3 +1,5 @@
+-- @license: GPLv2
+-- @author: Corinna Rohr
 
 -- Funktion CreateSignature zusätzlich wird benötigt
 

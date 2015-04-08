@@ -1,4 +1,5 @@
-
+-- @license: GPLv2
+-- @author: Corinna Rohr
 
 -- Lege einen neuen Nutzer -> somit auch einen neuen Ausweis an
 

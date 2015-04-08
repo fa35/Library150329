@@ -1,3 +1,6 @@
+-- @license: GPLv2
+-- @author: Corinna Rohr
+
 -- tests der suchen functionen
 
 

@@ -1,3 +1,6 @@
+-- @license: GPLv2
+-- @author: Corinna Rohr
+
 -- Teste Anlegen und Löschen eines Nutzers
 
 USE [Bibliothek]

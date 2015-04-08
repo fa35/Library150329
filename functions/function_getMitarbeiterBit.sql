@@ -1,3 +1,6 @@
+-- @license: GPLv2
+-- @author: Corinna Rohr
+
 USE[Bibliothek]
 GO
 CREATE FUNCTION GetMitarbeiterBit (@ausweisNr int)

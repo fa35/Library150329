@@ -1,3 +1,6 @@
+-- @license: GPLv2
+-- @author: Corinna Rohr
+
 -- aendere leihfrist / die ausleihwochen
 
 USE[Bibliothek]

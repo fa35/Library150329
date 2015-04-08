@@ -1,3 +1,5 @@
+-- @license: GPLv2
+-- @author: Corinna Rohr
 
 -- aendere jahresgebuehr und setze sie dann wieder auf den urspruenglichen wert
 

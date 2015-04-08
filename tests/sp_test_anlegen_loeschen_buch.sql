@@ -1,3 +1,6 @@
+-- @license: GPLv2
+-- @author: Corinna Rohr
+
 -- teste ob das anlegen und loeschen eines buches funktioniert
 
 USE [Bibliothek]
