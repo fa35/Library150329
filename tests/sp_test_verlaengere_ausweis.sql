@@ -1,14 +1,10 @@
 -- @license: GPLv2
 -- @author: Corinna Rohr
 
--- verlaengere ausweis
-
-
 USE[Bibliothek]
 GO
 CREATE PROCEDURE sp_TestVerlaengereAusweis @ausweisNr int, @recht bit, @vname nvarchar(max), @nname varchar(max), @gdatum date, @konto smallmoney, @pw varchar(16)
 AS
-
 
 PRINT 'Lege Test-Nutzer an'
 EXEC sp_LegeNutzerAn @ausweisNr, @recht, @vname, @nname, @gdatum, @konto, @pw
@@ -20,20 +16,24 @@ DECLARE @datum date = (select top(1) gueltigBis from Ausweise where passwort = @
 PRINT CONCAT('PersonenId = ', @personenId, ' Datum =' , @datum)
 
 PRINT 'Versuche Ausweis zu verlaengern'
-EXEC sp_VerlaengereAusweis @ausweisNr, @personenId
+DECLARE @ok bit = 0;
+EXEC @ok = sp_VerlaengereAusweis @ausweisNr, @personenId
 
-DECLARE @neuesdatum date = (select top(1) gueltigBis from Ausweise where passwort = @pw and pf_personen_id = @personenId)
+IF(@ok = 1)
+BEGIN
+	DECLARE @neuesdatum date = (select top(1) gueltigBis from Ausweise where passwort = @pw and pf_personen_id = @personenId)
 
-PRINT CONCAT('Altes Datum: ', @datum, ' Neues Datum: ', @neuesdatum)
+	PRINT CONCAT('Altes Datum: ', @datum, ' Neues Datum: ', @neuesdatum)
 
-IF(@datum < @neuesdatum)
-	BEGIN 
-		PRINT 'Prozedur sp_VerlaengereAusweis funktioniert'
-	END
-ELSE
-	BEGIN
-		PRINT 'Etwas stimmt mit der Prozedur sp_VerlaengereAusweis nicht'
-	END
+	IF(@datum < @neuesdatum)
+		BEGIN 
+			PRINT 'Prozedur sp_VerlaengereAusweis funktioniert'
+		END
+	ELSE
+		BEGIN
+			PRINT 'Etwas stimmt mit der Prozedur sp_VerlaengereAusweis nicht'
+		END
+END
 
 PRINT 'Loesche Test-Nutzer'
 

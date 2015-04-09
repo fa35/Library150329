@@ -1,8 +1,6 @@
 -- @license: GPLv2
 -- @author: Corinna Rohr
 
--- Funktion CreateSignature zusätzlich wird benötigt
-
 
 USE [Bibliothek]
 GO
@@ -40,29 +38,23 @@ CREATE PROCEDURE sp_LoescheExemplar @ausweisNr int, @signatur varchar(10)
 AS
 DECLARE @mitarbeiter bit = dbo.GetMitarbeiterBit(@ausweisNr)
 
-IF ( @mitarbeiter = 0)
+IF (@mitarbeiter = 0)
 	BEGIN 
 		PRINT 'Sie sind nicht berechtigt'
 	END
 ELSE
 	BEGIN
-		DECLARE @isbn bigint = (select f_isbn from Exemplare where p_signatur = @signatur);
+		DECLARE @existing bit = dbo.CheckExemparAusgeliehen (@signatur)
 
-		DECLARE @anzahl int = (
-			select count(*) 
-			from Ausgeliehene_Exemplare 
-			where pf_signatur = @signatur
-		)
-
-		IF(@anzahl > 0)
-		BEGIN
-			PRINT 'Das Exemplar ist ausgeliehen - kann somit nicht gelöscht werden'
-		END
+		IF(@existing > 0)
+			BEGIN
+				PRINT 'Das Exemplar ist ausgeliehen - kann somit nicht gelöscht werden'
+			END
 		ELSE
-		BEGIN
-			DELETE FROM Exemplare WHERE p_signatur = @signatur
+			BEGIN
+				DELETE FROM Exemplare WHERE p_signatur = @signatur
+			END
 	END
-END
 GO
 
 EXEC sp_LoescheExemplar 2, 'PROP0001'

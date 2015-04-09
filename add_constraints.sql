@@ -11,12 +11,10 @@ ADD CONSTRAINT ct_leihwochen CHECK (leihfrist_wochen >= 1)
 
 -- Gebuehren >= 0
 ALTER TABLE Bibliotheken
-ADD CONSTRAINT ct_jahresgebuehr CHECK (gebuehren_jahr >= 0 
-										AND ((gebuehren_jahr - gebuehren_jahr) = 0))
+ADD CONSTRAINT ct_jahresgebuehr CHECK (gebuehren_jahr >= 0)
 
 ALTER TABLE Bibliotheken
-ADD CONSTRAINT ct_leihgebuehr CHECK (gebuehren_leihfrist >= 0 
-									AND	((gebuehren_leihfrist - gebuehren_leihfrist) = 0))
+ADD CONSTRAINT ct_leihgebuehr CHECK (gebuehren_leihfrist >= 0)
 
 -- max. 2 Verlaengerungen
 ALTER TABLE Ausgeliehene_Exemplare
