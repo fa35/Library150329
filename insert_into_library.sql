@@ -10,7 +10,7 @@ INSERT INTO Bibliotheken
 (
 	p_bibliothek_id, name, ort, gebuehren_jahr, gebuehren_leihfrist, leihfrist_wochen
 )
-VALUES ( 1, 'Stadtbibliothek', 'Mitte', 30, 2.50, 2 ), ( 2, 'Charlottenbibliothek', 'Charlottenburg', 40, 2.00, 1 )
+VALUES ( 1, 'Stadtbibliothek', 'Mitte', 3000, 250, 2 ), ( 2, 'Charlottenbibliothek', 'Charlottenburg', 4000, 2000, 1 )
 GO
 
 INSERT INTO Fachgebiete ( p_fachgebiet_id, name, kuerzel )
@@ -39,9 +39,9 @@ GO
 INSERT INTO Nutzer
 (p_personen_id, mitarbeiter, vorname, name, geburtsdatum, kontostand)
 VALUES
-(1, 0, 'Melanie', 'Weißer', '14.12.1987', 20), (2, 1, 'Bruno', 'Krög', '22.07.1967', 0),
-(3, 0, 'Nadine', 'Siefert', '02.01.1977', 17), (4, 0, 'George', 'Meister', '18.11.1990', 100),
-(5, 0, 'Moritz', 'Fischer', '03.03.1985', 10), (6, 0, 'Henry', 'Lombard', '11.04.1984', 15)
+(1, 0, 'Melanie', 'Weißer', '14.12.1987', 200), (2, 1, 'Bruno', 'Krög', '22.07.1967', 0),
+(3, 0, 'Nadine', 'Siefert', '02.01.1977', 0), (4, 0, 'George', 'Meister', '18.11.1990', 200),
+(5, 1, 'Moritz', 'Fischer', '03.03.1985', 0), (6, 0, 'Henry', 'Lombard', '11.04.1984', 500)
 GO
 
 INSERT INTO Ausgeliehene_Exemplare (pf_signatur, pf_personen_id, rueckgabe_datum, anzahl_verlaengerungen)

@@ -27,8 +27,8 @@ CREATE TABLE Bibliotheken
 	p_bibliothek_id INTEGER NOT NULL PRIMARY KEY,
 	name NVARCHAR(MAX) NOT NULL,
 	ort NVARCHAR(MAX) NOT NULL,
-	gebuehren_jahr SMALLMONEY,
-	gebuehren_leihfrist SMALLMONEY,
+	gebuehren_jahr smallint NOT NULL DEFAULT 500,
+	gebuehren_leihfrist smallint NOT NULL DEFAULT 500,
 	leihfrist_wochen TINYINT,
 )
 
@@ -38,8 +38,8 @@ CREATE TABLE Nutzer
 	mitarbeiter BIT NOT NULL,
 	vorname NVARCHAR(MAX) NOT NULL,
 	name NVARCHAR(MAX) NOT NULL,
-	geburtsdatum DATE,
-	kontostand SMALLMONEY,
+	geburtsdatum DATE NOT NULL,
+	kontostand smallint NOT NULL DEFAULT 0,
 )
 
 CREATE TABLE Ausweise
