@@ -1,10 +1,6 @@
 -- @license: GPLv2
 -- @author: Corinna Rohr
 
--- sperre ausweis
--- entsperre ausweis
-
-
 USE[Bibliothek]
 GO
 CREATE PROCEDURE sp_TestSperreEntsperreAusweis @ausweisNr int

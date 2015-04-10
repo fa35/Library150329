@@ -1,11 +1,10 @@
 -- @license: GPLv2
 -- @author: Corinna Rohr
 
--- Wie kann man herausfinden ob der Wert einer Ganzzahl entspricht?
 
 USE[Bibliothek]
 GO
-CREATE FUNCTION CheckPositiveGanzzahl (@wert smallmoney)
+CREATE FUNCTION CheckPositiveGanzzahl (@wert smallint)
 RETURNS BIT
 AS
 BEGIN

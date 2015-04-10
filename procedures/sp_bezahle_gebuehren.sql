@@ -1,28 +1,35 @@
 -- @license: GPLv2
 -- @author: Corinna Rohr
 
--- Nutzer mit Ausweis, kann Gebuehren bezahlen:
 
 USE[Bibliothek]
 GO
 
-CREATE PROCEDURE sp_BegleicheGebuehr (@ausweisNr int, @betrag smallmoney)
+CREATE PROCEDURE sp_BegleicheGebuehr (@ausweisNr int, @betrag smallint)
 AS
 
-DECLARE @personenId int, @currKontostand smallmoney;
-SET @personenId = (select pf_personen_id from Ausweise where ausweisnr = @ausweisNr)
-SET @currKontostand = (select top(1) kontostand from Nutzer where p_personen_id = @personenId)
+DECLARE @b bit = dbo.CheckPositiveGanzzahl (@betrag)
 
-IF(@personenId >= 0)
-	BEGIN
-		UPDATE [dbo].[Nutzer]
-			SET kontostand = (@currKontostand-@betrag)
-			WHERE p_personen_id = @personenId
-	END
+IF(@b = 0)
+BEGIN
+	PRINT 'Negative Beitraege werden nicht angenommen'
+END
 ELSE
 	BEGIN
-		PRINT 'Person konnte nicht gefunden werden.'
-	END
-GO
+		DECLARE @personenId int, @currKontostand smallint;
+		SET @personenId = (select pf_personen_id from Ausweise where ausweisnr = @ausweisNr)
+		SET @currKontostand = (select top(1) kontostand from Nutzer where p_personen_id = @personenId)
 
-EXEC sp_BegleicheGebuehr 4, 50
+		IF(@personenId >= 0)
+			BEGIN
+				UPDATE [dbo].[Nutzer]
+					SET kontostand = (@currKontostand-@betrag)
+					WHERE p_personen_id = @personenId
+			END
+		ELSE
+			BEGIN
+				PRINT 'Person konnte nicht gefunden werden.'
+			END
+	END
+
+EXEC sp_BegleicheGebuehr 4, 500

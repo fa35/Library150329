@@ -1,9 +1,6 @@
 -- @license: GPLv2
 -- @author: Corinna Rohr
 
--- tests der suchen functionen
-
-
 USE[Bibliothek]
 GO
 CREATE PROCEDURE sp_TestSucheBuch @ausweisNr int, @isbn bigint, @titel nvarchar(max), @fachgebiet int

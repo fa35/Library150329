@@ -17,6 +17,12 @@ ELSE
 		DECLARE @fachgebiet int = (select f_fachgebiet_id from Buecher where p_ISBN = @isbn)
 		DECLARE @signature varchar(10) = dbo.CreateSignature(@fachgebiet, @isbn);
 
+		IF(@signature IS NULL OR LEN(@signature) < 10)
+		BEGIN
+			DECLARE @anzExem int = (select  count(*) from Exemplare)
+			SET @signature = CONVERT(varchar(10), (@anzExem + 1))
+		END
+
 		INSERT INTO [dbo].[Exemplare]
 					([p_signatur]
 					,[f_ISBN])
@@ -58,6 +64,3 @@ ELSE
 GO
 
 EXEC sp_LoescheExemplar 2, 'PROP0001'
-
--- evtl. cool oder notwendig sowas wie : loesche alle exemplare eines buches
-

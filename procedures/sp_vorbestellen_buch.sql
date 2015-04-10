@@ -1,7 +1,6 @@
 -- @license: GPLv2
 -- @author: Corinna Rohr
 
--- Nutzer mit Ausweis, kann Bücher vorbestellen:
 
 USE[Bibliothek]
 GO

@@ -1,7 +1,6 @@
 -- @license: GPLv2
 -- @author: Corinna Rohr
 
--- Rückgabe der Bücher bzw. da Exemplare ausgeliehen werden, Exemplare, ist ohne Ausweis möglich
 
 USE [Bibliothek]
 GO
